@@ -1,61 +1,17 @@
 import mongoDBConnect from "@/libs/mongodb";
 import Contact from "@/models/contact";
+import { revalidatePath } from "next/cache";
 import { NextResponse } from "next/server"
 
 export async function GET(request){
-    //step 1
-    //Beginning of Step 1
-    //(a)
-    // const courses = [
-    //     {
-    //         id:1,
-    //         title:"HTML Css coarse",
-    //         description:"This is a fundamental Course"
-    //     },
-    //     {
-    //         id:2,
-    //         title:"Python Coarse",
-    //         description:"This is a backend course"
-    //     }
-
-    // ]
-    //To be able to see them we have to return them as a response as below
-
-    // (b)
-    // return NextResponse.json(courses);
-
-    //NextResponse will import the Next/Server as above.
-    //localhost:3000/api/courses (You will see our courses in the browser or postman)
-    //End of Step 1
-
-    //Step 2 In some cases we want to usher in 2 things incase our data fails to show up we should show something as below. But above if the data fails to show up the app may just close.So here we are going to prepare for the worst by using the try catch method to capture that error incase it happens.
-
     try {
-        // const courses = [
-        //     {
-        //         id:1,
-        //         title:"HTML Css coarse",
-        //         description:"This is a fundamental Course"
-        //     },
-        //     {
-        //         id:2,
-        //         title:"Python Coarse",
-        //         description:"This is a backend course"
-        //     }
-    
-        // ]
-
-
-        //Part of step 9
-        // we use the get still as before to get the data from the database
-
         //a) Connect to the DataBase
         await mongoDBConnect()
         //b) Get the data
         const contacts = await Contact.find()
         //End of step 9
+        revalidatePath("/");
         
-
         return NextResponse.json(
             {
                 message:"Ok",
