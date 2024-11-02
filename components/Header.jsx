@@ -2,11 +2,11 @@ import Link from "next/link";
 export default function Header() {
   return (
     <header>
-      <Link className="logo" href="/">
+      <Link className="title" href="/">
         <h2>Clancy Contact Management System (CCMS)</h2>
       </Link>
-      <Link href="/add-contact" className="add-new-contact-container">
-        <h2>Add New Contact</h2>
+      <Link href="/add-contact" className="new-contact-section">
+        <h3>Add New Contact</h3>
       </Link>
     </header>
   );
