@@ -1,42 +1,30 @@
 import mongoDBConnect from "@/libs/mongodb";
 import Contact from "@/models/contact";
 import { revalidatePath } from "next/cache";
-import { NextResponse } from "next/server"
+import { NextResponse } from "next/server";
 
-export async function GET(request){
+export async function GET(request){  
     try {
-        //a) Connect to the DataBase
-        await mongoDBConnect()
-        //b) Get the data
-        const contacts = await Contact.find()
-        //End of step 9
+        await mongoDBConnect();
+        const contacts = await Contact.find();
         revalidatePath("/");
-        
         return NextResponse.json(
             {
                 message:"Ok",
                 data:contacts,
             }
-            //in postman it will show that the data is successfully shown.
-
-
         );
-        
     } catch (error) {
         return NextResponse.json(
             {
-                //Argument 1
             message: "Failed to fetch contacts",
-            error
-            
+            error    
         },{            
-               //Argument 2
             status:500
         });     
-     
-    }
-    
+    } 
 }
+
 
 //step 3
 // In real life we don't create the courses the we are doing above for example const courses = [...and so on], The courses have to come from a database ie mongodb.
